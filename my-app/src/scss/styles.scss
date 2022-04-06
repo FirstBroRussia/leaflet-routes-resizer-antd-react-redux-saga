@@ -1,0 +1,39 @@
+@import '~antd/dist/antd.css';
+
+body {
+  margin: 0;
+}
+
+.main {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 10px 1fr;
+
+    .table {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: scroll;
+
+      min-width: auto;
+      display: table;
+      margin: 0;
+      border: 2px solid black;
+    }
+
+    .divider {
+      height: 100vh;
+      background-color: red;
+      margin: auto;
+    }
+
+    .leaflet-block {
+      margin: 0;
+      border: 2px solid black;
+    }
+}
+
+// Кастомизация стилей компонентов Antd\
+
+.custom-table-cell {
+  min-width: 100px;
+}
