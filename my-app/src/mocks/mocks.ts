@@ -11,16 +11,20 @@ export type UnloadingPointType = {
 };
 
 export type DataType = {
-  readonly key: string,
+  readonly key: number
   readonly title: string,
+  currentLoadingPoint: string,
+  currentUnloadingPoint: string,
   loadingPoint: LoadingPointType[],
   unloadingPoint: UnloadingPointType[],
 };
 
-export const data: DataType[] = [
+export const dataSource: DataType[] = [
   {
-    key: '1',
+    key: 1,
     title: 'Заявка 1',
+    currentLoadingPoint: '',
+    currentUnloadingPoint: '',
     loadingPoint: [
       {
         loadingPointAddress: 'aaaaaa',
@@ -51,8 +55,10 @@ export const data: DataType[] = [
     ],
   },
   {
-    key: '2',
+    key: 2,
     title: 'Заявка 2',
+    currentLoadingPoint: '',
+    currentUnloadingPoint: '',
     loadingPoint: [
       {
         loadingPointAddress: 'hghhg',
@@ -83,8 +89,10 @@ export const data: DataType[] = [
     ],
   },
   {
-    key: '3',
+    key: 3,
     title: 'Заявка 3',
+    currentLoadingPoint: '',
+    currentUnloadingPoint: '',
     loadingPoint: [
       {
         loadingPointAddress: 'retre',

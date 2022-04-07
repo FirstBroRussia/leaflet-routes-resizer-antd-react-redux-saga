@@ -1,77 +1,61 @@
-import {Select, Table} from "antd";
-import {data, LoadingPointType, UnloadingPointType} from "../../../mocks/mocks";
+import {Table} from "antd";
+import React, {useEffect, useState} from "react";
+import {setPrimaryInitialProposalAction, setTargetProposalKeyAction} from "../../../features/counter/common-slice";
+import {dataSource, DataType, LoadingPointType, UnloadingPointType} from "../../../mocks/mocks";
+import {useAppDispatch, useAppSelector} from "../../../store/store";
+import LoadingSelectElement from "./selects/loading-select";
+import UnloadingSelectElement from "./selects/unloading-select";
+
+const getNecessaryDataFromDataSource = (key: number) => {
+  for (let index = 0; index < dataSource.length; index++) {
+    if (dataSource[index].key === key) {
+      return dataSource[index];
+    }
+  }
+};
 
 function TableElement() {
+  const dispatch = useAppDispatch();
 
-  const handleLoadingSelectChange = (evt: string): void => {
-    console.log(evt);
+  const isInitial = useAppSelector((state) => state.isInitial);
+  const currentTargetProposalKey = useAppSelector((state) => state.key);
+
+  const initialSelectedKey = 1;
+  const [selectedKey, setSelectedKey] = useState(initialSelectedKey)
+
+  useEffect(() => {
+    if (!isInitial) {
+      dispatch(setPrimaryInitialProposalAction(selectedKey));
+      return;
+    }
+    if (selectedKey !== currentTargetProposalKey) {
+      dispatch(setTargetProposalKeyAction(getNecessaryDataFromDataSource(selectedKey)));
+    }
+  }, [currentTargetProposalKey, dispatch, isInitial, selectedKey, setSelectedKey]);
+
+  const handleRowSelectChange = (evt: React.Key[]): void => {
+    const currentKey = Number(evt);
+    setSelectedKey(currentKey);
+    console.log(`KEY: ${currentKey}`);
   };
-
-  const handleUnLoadingSelectChange = (evt: string): void => {
-    console.log(evt);
-  };
-
-  const handleRowSelectChange = (evt: any) => {
-    console.log(evt);
-  };
-
-  const columns = [
-    {
-      title: 'Заявки',
-      dataIndex: 'title',
-    },
-    {
-      title: 'Точка погрузки',
-      dataIndex: 'loadingPoint',
-    },
-    {
-      title: 'Точка выгрузки',
-      dataIndex: 'unloadingPoint',
-    },
-  ];
 
   return (
-    <Table className="table" columns={columns} dataSource={data} size="small" pagination={false} rowSelection={{
-      type: "checkbox",
-      onSelect: handleRowSelectChange,
+    <Table className="table" dataSource={dataSource} size="small" pagination={false} rowSelection={{
+      type: "radio",
+      onChange: handleRowSelectChange,
+      selectedRowKeys: [selectedKey],
     }}>
-      {/* <Table.Column className="custom-table-cell" title="Заявки" dataIndex="title" key="title" />
-      <Table.Column className="custom-table-cell" title="Точка погрузки" dataIndex="loadingPoint" key="loadingPoint" render={
-          (loadingPoint: LoadingPointType[]) => {
-            return (
-              <Select onChange={handleLoadingSelectChange} style={{width: '100%'}} size="middle" defaultValue={loadingPoint[0].loadingPointAddress}>
-                {
-                  loadingPoint.map((item, index) => {
-                    const {loadingPointAddress}: LoadingPointType = item;
-                    return (
-                      <Select.Option key={index} value={loadingPointAddress}>
-                        {loadingPointAddress}
-                      </Select.Option>
-                    );
-                  })
-                }
-              </Select>
-            );
+      <Table.Column className="custom-table-cell" title="Заявки" dataIndex="title" key="key" />
+      <Table.Column className="custom-table-cell" title="Точка погрузки" dataIndex="loadingPoint" key="key" render={
+        (loadingPoint: LoadingPointType[], data: DataType) => {
+          return (<LoadingSelectElement loadingPoint={loadingPoint} data={data} />);
+        }
+      }/>
+      <Table.Column className="custom-table-cell" title="Точка выгрузки" dataIndex="unloadingPoint" key="key" render={
+          (unloadingPoint: UnloadingPointType[], data: DataType) => {
+            return (<UnloadingSelectElement unloadingPoint={unloadingPoint} data={data} />);
           }
         }/>
-      <Table.Column className="custom-table-cell" title="Точка выгрузки" dataIndex="unloadingPoint" key="unloadingPoint" render={
-          (unloadingPoint: UnloadingPointType[]) => {
-            return (
-              <Select onChange={handleUnLoadingSelectChange} style={{width: '100%'}} size="middle" defaultValue={unloadingPoint[0].unloadingPointAddress}>
-                {
-                  unloadingPoint.map((item, index) => {
-                    const {unloadingPointAddress}: UnloadingPointType = item;
-                    return (
-                      <Select.Option key={index} value={unloadingPointAddress}>
-                        {unloadingPointAddress}
-                      </Select.Option>
-                    );
-                  })
-                }
-              </Select>
-            );
-          }
-        }/> */}
     </Table>
   );
 }

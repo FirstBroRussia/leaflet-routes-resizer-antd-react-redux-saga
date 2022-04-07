@@ -1,6 +1,9 @@
+import {useRef} from "react";
+
 function LeafletMapCanvas() {
+  const mapCanvasRef = useRef(null);
   return (
-    <div className="leaflet-block">
+    <div ref={mapCanvasRef} className="leaflet-block">
 
     </div>
   );
