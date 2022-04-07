@@ -5,28 +5,35 @@ body {
 }
 
 .main {
+  width: 100vw;
   height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 10px 1fr;
+  // display: grid;
+  // grid-template-columns: 1fr 20px 1fr;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
     .table {
-      display: flex;
-      flex-wrap: nowrap;
+      min-width: 200px;
+      width: 50%;
       overflow-x: scroll;
-
-      min-width: auto;
-      display: table;
-      margin: 0;
       border: 2px solid black;
     }
 
     .divider {
+      min-width: 10px;
+      width: auto;
       height: 100vh;
       background-color: red;
       margin: auto;
     }
+      .divider:hover {
+        cursor: col-resize;
+      }
 
-    .leaflet-block {
+    .map-block {
+      min-width: 200px;
+      width: 50%;
       margin: 0;
       border: 2px solid black;
     }

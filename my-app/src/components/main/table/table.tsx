@@ -14,7 +14,7 @@ const getNecessaryDataFromDataSource = (key: number) => {
   }
 };
 
-function TableElement() {
+function TableElement(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const isInitial = useAppSelector((state) => state.isInitial);
