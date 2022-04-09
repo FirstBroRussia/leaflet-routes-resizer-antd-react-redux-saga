@@ -5,11 +5,9 @@ import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {betweenPoints, getDistance, getZoom} from '../../../utils/distance-utils';
 import '../../api/api';
 
+const FULCRUM_VALUE = 0;
+
 const ZOOM_MAP = 12;
-
-let isPrimaryInitialUseMap = false;
-
-let isInitialMap = false;
 
 let map: any;
 
@@ -43,6 +41,7 @@ const createMap = (mapRef: any) => {
       'http://tile2.maps.2gis.com/tiles?x={x}&y={y}&z={z}',
     )
     .addTo(map);
+
     defaultLayer = leaflet.layerGroup();
     defaultLayer.addTo(map);
 };
@@ -55,24 +54,35 @@ const setDefaultLayerToMap = () => {
 
 function useMap() {
   const dispatch = useAppDispatch();
+  const [isPrimaryInitialUseMap, setPrimaryInitialUseMap] = useState(false);
   const currentTargetProposalKey = useAppSelector((state) => state.proposalReducer.key);
   const loadingPointCoordinates = useAppSelector((state) => state.mapReducer.loadingCoordinates);
   const unloadingPointCoordinates = useAppSelector((state) => state.mapReducer.unloadingCoordinates);
   const coordinatesList = useAppSelector((state) => state.mapReducer.coordinatesList);
+  const currentWidthMapBlock = useAppSelector((state) => state.mapReducer.currentWidthMapBlock);
+  const [state, setState] = useState(coordinatesList);
 
   useEffect(() => {
+    if (!isPrimaryInitialUseMap) {
+      setPrimaryInitialUseMap(true);
+    }
     setDefaultLayerToMap();
-    console.log('UPDATE EFFECT');
-  }, [currentTargetProposalKey, dispatch]);
+  }, [currentTargetProposalKey, dispatch, isPrimaryInitialUseMap]);
 
-  if (coordinatesList) {
-    const polyline = leaflet.polyline(coordinatesList, {color: 'red'}).addTo(defaultLayer);
-    console.log('POLYLINE');
+  if (map && currentWidthMapBlock !== FULCRUM_VALUE) {
+    map.invalidateSize();
   }
 
+  if (state !== coordinatesList) {
+    setDefaultLayerToMap();
+    setState(coordinatesList);
+  }
+
+  if (coordinatesList) {
+    leaflet.polyline(coordinatesList, {color: 'red'}).addTo(defaultLayer);
+  }
 
   if (loadingPointCoordinates !== null) {
-    console.log(loadingPointCoordinates);
     if (marker1) {
       map.removeLayer(marker1);
     }
@@ -84,7 +94,6 @@ function useMap() {
   }
 
   if (unloadingPointCoordinates !== null) {
-    console.log(unloadingPointCoordinates);
     if (marker2) {
       map.removeLayer(marker2);
     }
@@ -101,14 +110,11 @@ function useMap() {
         dispatch(getPolylineCoordinateFromServer());
       });
     }
-
     const distance = getDistance([loadingPointCoordinates?.lat, loadingPointCoordinates?.lon], [unloadingPointCoordinates?.lat, unloadingPointCoordinates?.lon]);
     const zoomCoordinate = betweenPoints([loadingPointCoordinates?.lat, loadingPointCoordinates?.lon], [unloadingPointCoordinates?.lat, unloadingPointCoordinates?.lon]);
     const zoom = getZoom(distance);
     map.setView(zoomCoordinate, zoom);
   }
-
-  isPrimaryInitialUseMap = true;
 };
 
 
@@ -117,18 +123,14 @@ function MapCanvas() {
   const mapCanvasRef = useRef(null);
 
   useEffect(() => {
-    console.log('MOUNT');
     if (primaryInitial) {
       return;
     }
-    isInitialMap = true;
-    console.log('REPEAT MOUNT');
     createMap(mapCanvasRef);
     setPrimaryInitial(true);
   }, [primaryInitial]);
 
-  const aaa = useMap();
-
+  useMap();
 
   return (
     <div ref={mapCanvasRef} className="map-block">

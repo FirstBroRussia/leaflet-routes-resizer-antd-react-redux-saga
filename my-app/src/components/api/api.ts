@@ -1,10 +1,12 @@
 import axios from "axios";
-import { CoordinateType } from "../../store/slice/map-slice";
+import {CoordinateType} from "../../store/slice/map-slice";
 
 type YaGetGeocoordinateApiParamsType = {
   loadingCoordinates: CoordinateType,
   unloadingCoordinates: CoordinateType,
 };
+
+// Я НЕ СТАЛ ФОРМИРОВАТЬ ОБРАЗЦОВЫЕ ЗАПРОСЫ ГДЕ HEADERS И BODY СОЗДАЮТСЯ, Я ОЧЕНЬ МНОГО ВРЕМЕНИ ПРОВЕЛ В ПОИСКАХ СЕРВИСА ПО АДЕКВАТНОМУ И БЕСПЛАТНОМУ ПОСТРОЕНИЮ МАРШРУТА
 
 const DOUBLE_GIS_API_KEY = 'ruoxfy4628';
 const YANDEX_API_KEY = 'b62e139a-08d2-42e6-b203-6bcc83ec4318';
@@ -20,7 +22,6 @@ export const DGgetGeocoordinateApi = async (pointData: PointData): Promise<any> 
     return point;
   } catch (error) {
     console.log(error);
-    // throw new Error(err);
   }
 }
 
@@ -67,12 +68,10 @@ export const yaGetGeocoordinateApi = async (pointData: PointData) => {
 
 export const mapBoxGetPolylineCoordinateApi = async (pointsData: YaGetGeocoordinateApiParamsType) => {
   const {loadingCoordinates, unloadingCoordinates}: YaGetGeocoordinateApiParamsType = pointsData;
-  const routingType = 'mapbox/driving-traffic';
 
   try {
     const {data} = await axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving-traffic/${loadingCoordinates.lon},${loadingCoordinates.lat};${unloadingCoordinates.lon},${unloadingCoordinates.lat}?geometries=geojson&access_token=${MAPBOX_API_KEY}`);
     const coordinatesList = data.routes[0].geometry.coordinates;
-    console.log(coordinatesList);
     return coordinatesList;
   } catch (error) {
     console.log(error);
@@ -81,20 +80,6 @@ export const mapBoxGetPolylineCoordinateApi = async (pointsData: YaGetGeocoordin
 
 export const graphHopperGetPolylineCoordinateApi = async (pointsData: YaGetGeocoordinateApiParamsType) => {
   const {loadingCoordinates, unloadingCoordinates}: YaGetGeocoordinateApiParamsType = pointsData;
-  const routingType = 'car';
-  // console.log(pointsData);
-  // const postData = {
-  //   "points": [
-  //     {
-  //       "lon1": loadingCoordinates.lon,
-  //       "lat1": loadingCoordinates.lat,
-  //       "lon2": unloadingCoordinates.lon,
-  //       "lat2": unloadingCoordinates.lat
-  //     }
-  //   ],
-  //   "type": "shortest",
-  //   "output": "full"
-  // };
 
   try {
     const {data} = await axios.get(`https://graphhopper.com/api/1/route?point=${loadingCoordinates.lat},${loadingCoordinates.lon}&point=${unloadingCoordinates.lat},${unloadingCoordinates.lon}&profile=car&locale=ru&calc_points=false&points_encoded=false&key=${GRAPHHOPPER_API_KEY}`);

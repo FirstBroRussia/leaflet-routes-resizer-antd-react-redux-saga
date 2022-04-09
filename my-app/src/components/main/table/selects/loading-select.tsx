@@ -3,6 +3,7 @@ import {setCurrentLoadingPointAction} from "../../../../store/slice/proposal-sli
 import {DataType, LoadingPointType} from "../../../../mocks/mocks";
 import { useAppDispatch, useAppSelector } from "../../../../store/store";
 import { getConvertedCoordinatesFromServer } from "../../../../store/saga-actions/saga-actions";
+import { setCoordinatesListAction } from "../../../../store/slice/map-slice";
 
 type LoadingSelectElementPropsType = {
   loadingPoint: LoadingPointType[],
@@ -21,6 +22,7 @@ function LoadingSelectElement({loadingPoint, data}: LoadingSelectElementPropsTyp
     if (key === currentTargetProposalKey) {
       dispatch(setCurrentLoadingPointAction(currentSelect));
       dispatch(getConvertedCoordinatesFromServer());
+      dispatch(setCoordinatesListAction(null));
     }
   };
 

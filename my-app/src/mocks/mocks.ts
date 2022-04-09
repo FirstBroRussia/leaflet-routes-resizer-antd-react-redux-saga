@@ -106,6 +106,9 @@ export const dataSource: DataType[] = [
       {
         loadingPointAddress: 'Сочи площадь Флага',
       },
+      {
+        loadingPointAddress: 'Москва Земляной вал 10',
+      },
     ],
     unloadingPoint: [
       {
@@ -119,6 +122,9 @@ export const dataSource: DataType[] = [
       },
       {
         unloadingPointAddress: 'Ростов на дону Ростов арена',
+      },
+      {
+        unloadingPointAddress: 'Москва Таганская 10',
       },
     ],
   }

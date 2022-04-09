@@ -6,7 +6,7 @@ import {useAppDispatch, useAppSelector} from "../../../store/store";
 import LoadingSelectElement from "./selects/loading-select";
 import UnloadingSelectElement from "./selects/unloading-select";
 import {getConvertedCoordinatesFromServer} from "../../../store/saga-actions/saga-actions";
-import {setCleanerInitialState, setCoordinatesListAction} from "../../../store/slice/map-slice";
+import {setCleanerInitialStateAction, setCoordinatesListAction} from "../../../store/slice/map-slice";
 
 const getNecessaryDataFromDataSource = (key: number) => {
   for (let index = 0; index < dataSource.length; index++) {
@@ -33,16 +33,15 @@ function TableElement(): JSX.Element {
     if (selectedKey !== currentTargetProposalKey) {
       dispatch(setTargetProposalKeyAction(getNecessaryDataFromDataSource(selectedKey)));
       //
-      dispatch(setCleanerInitialState());
+      dispatch(setCleanerInitialStateAction());
       dispatch(getConvertedCoordinatesFromServer());
       dispatch(setCoordinatesListAction(null));
     }
-  }, [currentTargetProposalKey, dispatch, selectedKey]);
+  }, [currentTargetProposalKey, dispatch, isInitial, selectedKey]);
 
   const handleRowSelectChange = (evt: React.Key[]): void => {
     const currentKey = Number(evt);
     setSelectedKey(currentKey);
-    console.log(`KEY: ${currentKey}`);
   };
 
   return (

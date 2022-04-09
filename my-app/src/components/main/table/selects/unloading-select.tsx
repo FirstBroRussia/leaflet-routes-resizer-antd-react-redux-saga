@@ -3,6 +3,7 @@ import { setCurrentUnloadingPointAction } from "../../../../store/slice/proposal
 import {DataType, UnloadingPointType} from "../../../../mocks/mocks";
 import { useAppDispatch, useAppSelector } from "../../../../store/store";
 import { getConvertedCoordinatesFromServer } from "../../../../store/saga-actions/saga-actions";
+import { setCoordinatesListAction } from "../../../../store/slice/map-slice";
 
 type UnloadingSelectElementPropsType = {
   unloadingPoint: UnloadingPointType[],
@@ -21,6 +22,7 @@ function UnloadingSelectElement({unloadingPoint, data}: UnloadingSelectElementPr
     if (key === currentTargetProposalKey) {
       dispatch(setCurrentUnloadingPointAction(currentSelect));
       dispatch(getConvertedCoordinatesFromServer());
+      dispatch(setCoordinatesListAction(null));
     }
   };
 

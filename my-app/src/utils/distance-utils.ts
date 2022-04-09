@@ -49,7 +49,6 @@ export const betweenPoints = (origin: any, destination: any) => {
 };
 
 export const getZoom = (distance: number): number => {
-  console.log(distance);
   switch (true) {
     case (Distance.is6000km > distance && distance > Distance.is3000km): return 4;
     case (Distance.is3000km > distance && distance > Distance.is1200km): return 5;

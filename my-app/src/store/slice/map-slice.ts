@@ -8,12 +8,14 @@ export type CoordinateType = {
 };
 
 type InitialStateType = {
+  currentWidthMapBlock: number | string | null,
   loadingCoordinates: CoordinateType | null,
   unloadingCoordinates: CoordinateType | null,
   coordinatesList: [] | null,
 };
 
 const initialState: InitialStateType = {
+  currentWidthMapBlock: null,
   loadingCoordinates: null,
   unloadingCoordinates: null,
   coordinatesList: null,
@@ -23,7 +25,10 @@ const mapSlice = createSlice({
   name: MAP_SLICE,
   initialState,
   reducers: {
-    setCleanerInitialState: (state) => {
+    setWidthMapBlockAction: (state, actions) => {
+      state.currentWidthMapBlock = actions.payload;
+    },
+    setCleanerInitialStateAction: (state) => {
       state.loadingCoordinates = null;
       state.unloadingCoordinates = null;
     },
@@ -39,6 +44,6 @@ const mapSlice = createSlice({
   }
 });
 
-export const {setCoordinatesListAction, setCleanerInitialState, setLoadingCoordinatesAction, setUnloadingCoordinatesAction} = mapSlice.actions;
+export const {setWidthMapBlockAction, setCoordinatesListAction, setCleanerInitialStateAction, setLoadingCoordinatesAction, setUnloadingCoordinatesAction} = mapSlice.actions;
 
 export default mapSlice;
