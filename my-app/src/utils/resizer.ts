@@ -14,8 +14,6 @@ let mapBlockElementWidth: number;
 let tableElement: any;
 let mapBlockElement: any;
 
-// Я ТОЛЬКО НЕ ЗНАЮ, КАК ПРИ ИЗМЕНЕНИИ РАЗМЕРА КОНТЕЙНЕРА КАРТЫ ПЕРЕДАТЬ САМОЙ КАРТЕ ЭТО ИЗМЕНЕНИЕ
-// ОНА САМА РЕАГИРУЕТ НА ИЗМЕНЕНИЕ VIEWPORT, НАДО ВИДИМО ИСКАТЬ В ДОБАВОЧНЫХ КЛАССАХ КАРТЫ LEAFLET
 // ЕЩЕ RESIZER ОЧЕНЬ ХОРОШО РАБОТАЕТ В FIREFOX И OPERA, А ВОТ В CHROME МЫШКА БЫСТРЕЕ ИЗМЕНЕНИЯ ШИРИНЫ ПРОИСХОДИТ ПОЭТОМУ МЫШКА УБЕГАЕТ ДАЛЬШЕ ПОЛОСЫ
 
 const setNecessaryNodeElement = () => {
