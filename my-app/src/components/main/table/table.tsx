@@ -1,10 +1,12 @@
 import {Table} from "antd";
 import React, {useEffect, useState} from "react";
-import {setPrimaryInitialProposalAction, setTargetProposalKeyAction} from "../../../features/counter/common-slice";
+import {setPrimaryInitialProposalAction, setTargetProposalKeyAction} from "../../../store/slice/proposal-slice";
 import {dataSource, DataType, LoadingPointType, UnloadingPointType} from "../../../mocks/mocks";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import LoadingSelectElement from "./selects/loading-select";
 import UnloadingSelectElement from "./selects/unloading-select";
+import {getConvertedCoordinatesFromServer} from "../../../store/saga-actions/saga-actions";
+import {setCleanerInitialState, setCoordinatesListAction} from "../../../store/slice/map-slice";
 
 const getNecessaryDataFromDataSource = (key: number) => {
   for (let index = 0; index < dataSource.length; index++) {
@@ -17,8 +19,8 @@ const getNecessaryDataFromDataSource = (key: number) => {
 function TableElement(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const isInitial = useAppSelector((state) => state.isInitial);
-  const currentTargetProposalKey = useAppSelector((state) => state.key);
+  const isInitial = useAppSelector((state) => state.proposalReducer.isInitial);
+  const currentTargetProposalKey = useAppSelector((state) => state.proposalReducer.key);
 
   const initialSelectedKey = 1;
   const [selectedKey, setSelectedKey] = useState(initialSelectedKey)
@@ -30,8 +32,12 @@ function TableElement(): JSX.Element {
     }
     if (selectedKey !== currentTargetProposalKey) {
       dispatch(setTargetProposalKeyAction(getNecessaryDataFromDataSource(selectedKey)));
+      //
+      dispatch(setCleanerInitialState());
+      dispatch(getConvertedCoordinatesFromServer());
+      dispatch(setCoordinatesListAction(null));
     }
-  }, [currentTargetProposalKey, dispatch, isInitial, selectedKey, setSelectedKey]);
+  }, [currentTargetProposalKey, dispatch, selectedKey]);
 
   const handleRowSelectChange = (evt: React.Key[]): void => {
     const currentKey = Number(evt);

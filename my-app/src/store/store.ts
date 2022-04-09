@@ -1,12 +1,17 @@
-import {configureStore} from '@reduxjs/toolkit';
+import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
-import commonSlice from '../features/counter/common-slice';
-import {enableMapSet} from 'immer';
-enableMapSet();
+import createSagaMiddleware from 'redux-saga';
+import {rootSaga} from './sagas/userSaga';
+import commonReducer from './slice/reducer';
+
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
-  reducer: commonSlice.reducer,
+  reducer: commonReducer,
+  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  middleware: [...getDefaultMiddleware({ thunk: false }),sagaMiddleware],
 });
+sagaMiddleware.run(rootSaga);
 
 export type StateType = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

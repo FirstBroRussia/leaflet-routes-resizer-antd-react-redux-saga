@@ -1,6 +1,6 @@
 import '../../utils/resizer';
 import {Divider} from "antd";
-import MapCanvas from "./leaflet-map-canvas/map-canvas";
+import MapCanvas from "./map-canvas/map-canvas";
 import TableElement from "./table/table";
 
 function Main() {

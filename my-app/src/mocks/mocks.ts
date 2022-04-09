@@ -27,30 +27,30 @@ export const dataSource: DataType[] = [
     currentUnloadingPoint: '',
     loadingPoint: [
       {
-        loadingPointAddress: 'aaaaaa',
+        loadingPointAddress: 'Москва Главный кремль',
       },
       {
-        loadingPointAddress: 'bbb',
+        loadingPointAddress: 'Петербург Смольный храм',
       },
       {
-        loadingPointAddress: 'cccc',
+        loadingPointAddress: 'Рязань Главная почта',
       },
       {
-        loadingPointAddress: 'dddd',
+        loadingPointAddress: 'Сочи площадь Флага',
       },
     ],
     unloadingPoint: [
       {
-        unloadingPointAddress: 'zzz',
+        unloadingPointAddress: 'Москва площадь васильевский спуск',
       },
       {
-        unloadingPointAddress: 'xxxx',
+        unloadingPointAddress: 'Химки Главнй стадион',
       },
       {
-        unloadingPointAddress: 'ccc',
+        unloadingPointAddress: 'Липецк Хлебкомбинат',
       },
       {
-        unloadingPointAddress: 'vvvv',
+        unloadingPointAddress: 'Ростов на дону Ростов арена',
       },
     ],
   },
@@ -61,30 +61,30 @@ export const dataSource: DataType[] = [
     currentUnloadingPoint: '',
     loadingPoint: [
       {
-        loadingPointAddress: 'hghhg',
+        loadingPointAddress: 'Москва Главный кремль',
       },
       {
-        loadingPointAddress: 'jhgjg',
+        loadingPointAddress: 'Петербург Смольный храм',
       },
       {
-        loadingPointAddress: 'drtrd',
+        loadingPointAddress: 'Рязань Главная почта',
       },
       {
-        loadingPointAddress: 'fdgdfgfd',
+        loadingPointAddress: 'Сочи площадь Флага',
       },
     ],
     unloadingPoint: [
       {
-        unloadingPointAddress: 'ujjuuj',
+        unloadingPointAddress: 'Москва тц Атриум',
       },
       {
-        unloadingPointAddress: 'uuytuyt',
+        unloadingPointAddress: 'Химки Главнй стадион',
       },
       {
-        unloadingPointAddress: 'jghmnbv',
+        unloadingPointAddress: 'Липецк Хлебкомбинат',
       },
       {
-        unloadingPointAddress: 'kuikuy',
+        unloadingPointAddress: 'Ростов на дону Ростов арена',
       },
     ],
   },
@@ -95,30 +95,30 @@ export const dataSource: DataType[] = [
     currentUnloadingPoint: '',
     loadingPoint: [
       {
-        loadingPointAddress: 'retre',
+        loadingPointAddress: 'Москва Главный кремль',
       },
       {
-        loadingPointAddress: 'hhhgnvbnvb',
+        loadingPointAddress: 'Петербург Смольный храм',
       },
       {
-        loadingPointAddress: 'dd',
+        loadingPointAddress: 'Рязань Главная почта',
       },
       {
-        loadingPointAddress: 'rrr',
+        loadingPointAddress: 'Сочи площадь Флага',
       },
     ],
     unloadingPoint: [
       {
-        unloadingPointAddress: 'ee',
+        unloadingPointAddress: 'Москва тц Атриум',
       },
       {
-        unloadingPointAddress: 'rr',
+        unloadingPointAddress: 'Химки Главнй стадион',
       },
       {
-        unloadingPointAddress: 'tt',
+        unloadingPointAddress: 'Липецк Хлебкомбинат',
       },
       {
-        unloadingPointAddress: 'yy',
+        unloadingPointAddress: 'Ростов на дону Ростов арена',
       },
     ],
   }

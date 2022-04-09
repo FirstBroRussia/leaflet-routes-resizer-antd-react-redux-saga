@@ -1,7 +1,8 @@
 import {Select} from "antd";
-import { setCurrentUnloadingPointAction } from "../../../../features/counter/common-slice";
+import { setCurrentUnloadingPointAction } from "../../../../store/slice/proposal-slice";
 import {DataType, UnloadingPointType} from "../../../../mocks/mocks";
 import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import { getConvertedCoordinatesFromServer } from "../../../../store/saga-actions/saga-actions";
 
 type UnloadingSelectElementPropsType = {
   unloadingPoint: UnloadingPointType[],
@@ -10,7 +11,7 @@ type UnloadingSelectElementPropsType = {
 
 function UnloadingSelectElement({unloadingPoint, data}: UnloadingSelectElementPropsType) {
   const dispatch = useAppDispatch();
-  const currentTargetProposalKey = useAppSelector((state) => state.key);
+  const currentTargetProposalKey = useAppSelector((state) => state.proposalReducer.key);
 
   const {key}: DataType = data;
 
@@ -19,6 +20,7 @@ function UnloadingSelectElement({unloadingPoint, data}: UnloadingSelectElementPr
     data.currentUnloadingPoint = currentSelect;
     if (key === currentTargetProposalKey) {
       dispatch(setCurrentUnloadingPointAction(currentSelect));
+      dispatch(getConvertedCoordinatesFromServer());
     }
   };
 

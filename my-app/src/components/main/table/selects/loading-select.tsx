@@ -1,7 +1,8 @@
 import {Select} from "antd";
-import {setCurrentLoadingPointAction} from "../../../../features/counter/common-slice";
+import {setCurrentLoadingPointAction} from "../../../../store/slice/proposal-slice";
 import {DataType, LoadingPointType} from "../../../../mocks/mocks";
 import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import { getConvertedCoordinatesFromServer } from "../../../../store/saga-actions/saga-actions";
 
 type LoadingSelectElementPropsType = {
   loadingPoint: LoadingPointType[],
@@ -10,7 +11,7 @@ type LoadingSelectElementPropsType = {
 
 function LoadingSelectElement({loadingPoint, data}: LoadingSelectElementPropsType) {
   const dispatch = useAppDispatch();
-  const currentTargetProposalKey = useAppSelector((state) => state.key);
+  const currentTargetProposalKey = useAppSelector((state) => state.proposalReducer.key);
 
   const {key}: DataType = data;
 
@@ -19,6 +20,7 @@ function LoadingSelectElement({loadingPoint, data}: LoadingSelectElementPropsTyp
     data.currentLoadingPoint = currentSelect;
     if (key === currentTargetProposalKey) {
       dispatch(setCurrentLoadingPointAction(currentSelect));
+      dispatch(getConvertedCoordinatesFromServer());
     }
   };
 

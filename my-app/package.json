@@ -3,19 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@2gis/mapgl": "^1.25.0",
     "@reduxjs/toolkit": "1.8.1",
     "@testing-library/jest-dom": "4.2.4",
     "@testing-library/react": "9.5.0",
     "@testing-library/user-event": "7.2.1",
+    "@types/leaflet": "^1.7.9",
     "2gis-maps": "^3.7.1",
     "2gis-maps-react": "^0.0.4",
     "antd": "4.19.5",
+    "axios": "^0.26.1",
     "eslint": "8.12.0",
+    "leaflet": "^1.7.1",
     "node-sass": "7.0.1",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-redux": "7.2.8",
-    "react-scripts": "^5.0.0"
+    "react-scripts": "^5.0.0",
+    "redux-saga": "^1.1.3",
+    "redux-saga-routines": "^3.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,6 +47,7 @@
   "devDependencies": {
     "eslint-config-htmlacademy": "5.1.0",
     "redux-devtools-extension": "2.13.9",
+    "redux-saga-devtools": "^0.3.0",
     "typescript": "4.6.3"
   }
 }
